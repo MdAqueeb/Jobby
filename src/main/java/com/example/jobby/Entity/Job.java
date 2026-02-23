@@ -62,7 +62,7 @@ public class Job {
 
 
 
-    enum Employment_Type{
+    public enum Employment_Type{
         full_time, 
         internship, 
         freelancer, 
