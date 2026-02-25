@@ -34,6 +34,3 @@ public class Skills {
 }
 
  
-//         "image_url": "https://assets.ccbp.in/frontend/react-js/jobby-app/docker-img.png",
-//         "name": "Docker"
-//       }

@@ -25,6 +25,8 @@ public class User {
     @Column(name = "user_profile")
     private String user_profile;
 
+    private String imagePublicId;
+
     @Column(name = "username", nullable = false, unique = true)
     private String username;
 
@@ -33,4 +35,6 @@ public class User {
 
     @Column(name = "short_bio", nullable = false, columnDefinition = "TEXT")
     private String short_bio; 
+
+
 }

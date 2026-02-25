@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -19,7 +20,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity<ApiResponse<User>> loginUser(@RequestBody LoginDTO details){
         User usr = userService.LoginUser(details);
         ApiResponse<User> response = new ApiResponse<>();
@@ -29,7 +30,7 @@ public class UserController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/singup")
+    @PostMapping("/singup")
     public ResponseEntity<ApiResponse<User>> SingUp(@RequestBody User details){
         User usr = userService.signUp(details);
         ApiResponse<User> response = new ApiResponse<>();

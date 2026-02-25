@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.jobby.DTO.ApiResponse;
@@ -22,7 +22,15 @@ public class JobController {
     private JobService jobService;
 
     @GetMapping("/jobs")
-    public ResponseEntity<ApiResponse<List<Job>>> getAllJobs(@RequestBody JobFilter filter){
+    public ResponseEntity<ApiResponse<List<Job>>> getAllJobs(
+        @RequestParam(required = false) List<String> employeType,
+        @RequestParam(required = false, defaultValue = "") String search,
+        @RequestParam(required = false, defaultValue = "0") Integer min_salary){
+
+        JobFilter filter = new JobFilter();
+        filter.setEmployeType(employeType);
+        filter.setMin_salary(min_salary);
+        filter.setSearch(search);
         List<Job> jobs = jobService.findAllJobs(filter);
         ApiResponse<List<Job>> response = new ApiResponse<>();
         response.setData(jobs);

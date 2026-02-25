@@ -4,7 +4,7 @@ package com.example.jobby.Entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
@@ -49,7 +49,6 @@ public class Job {
 
     @Column(nullable = false)
     private String job_title;
-    // skills relation : one to many
 
     @OneToMany(mappedBy = "job", cascade = CascadeType.ALL, orphanRemoval = true)
     @JsonManagedReference
@@ -57,7 +56,7 @@ public class Job {
 
     @ManyToOne
     @JoinColumn(name = "company_id", nullable = false)
-    @JsonBackReference
+    @JsonIgnoreProperties("jobs")
     private Company company;
 
 
