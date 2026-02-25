@@ -8,7 +8,7 @@ import com.example.jobby.Entity.User;
 
 public interface UserRepo extends JpaRepository<User, Long>{
 
-    @Query(value = "SELECT * FROM user WHERE username = :username", nativeQuery = true)
+    @Query(value = "SELECT * FROM users WHERE username = :username", nativeQuery = true)
     User findByUsername(@Param("username") String username);
     
 }
