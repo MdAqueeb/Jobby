@@ -22,12 +22,12 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(
             HttpSecurity http,
-            JwtFilter jwtFilter   // ✅ inject here
+            JwtFilter jwtFilter   
     ) throws Exception {
 
         http.csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/login", "/signup").permitAll()
+                .requestMatchers("/login", "/singup").permitAll()
                 .requestMatchers("/jobs/**").permitAll()
                 .anyRequest().authenticated()
             )
