@@ -1,5 +1,8 @@
 package com.example.jobby.Controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.jobby.Components.JwtUtil;
 import com.example.jobby.DTO.ApiResponse;
 import com.example.jobby.DTO.LoginDTO;
 import com.example.jobby.Entity.User;
@@ -17,14 +21,22 @@ import com.example.jobby.Service.UserService;
 @RestController
 public class UserController {
     
+    
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private JwtUtil jwtUtil;
+
     @PostMapping("/login")
-    public ResponseEntity<ApiResponse<User>> loginUser(@RequestBody LoginDTO details){
+    public ResponseEntity<ApiResponse<Map<String, Object>>> loginUser(@RequestBody LoginDTO details){
         User usr = userService.LoginUser(details);
-        ApiResponse<User> response = new ApiResponse<>();
-        response.setData(usr);
+        String token = jwtUtil.generateToken(usr.getUsername());
+         Map<String, Object> responseData = new HashMap<>();
+        responseData.put("token", token);
+        responseData.put("user", usr);
+        ApiResponse<Map<String, Object>> response = new ApiResponse<>();
+        response.setData(responseData);
         response.setMessage("User Login successfull");
         response.setSuccess(true);
         return new ResponseEntity<>(response, HttpStatus.OK);

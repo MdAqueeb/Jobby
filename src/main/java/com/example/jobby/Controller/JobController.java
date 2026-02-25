@@ -39,7 +39,7 @@ public class JobController {
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    @GetMapping("/job/{jobId}")
+    @GetMapping("/jobs/{jobId}")
     public ResponseEntity<ApiResponse<Job>> getJob(@PathVariable Long jobId){
         Job job = jobService.getJobDetails(jobId);
         ApiResponse<Job> response = new ApiResponse<>();
